@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>vue2</title>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <div class="row">
+
+        <div class="col-md-12">
+          <h3>Campeonato Brasileiro - Série A - 2017</h3>
+          <br>
+
+          <a v-on:click.prevent="createNovoJogo" class="btn btn-info">Novo Jogo</a>
+          <br>
+
+         <div class="control-group">
+          <div class="controls">
+              <input type="text" class="form-control" v-model="filter">
+            </div>
+          </div>
+        </div>
+        <div v-if="view == 'tabela'" class="col-md-12">
+
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th  v-for="coluna in colunas">
+                  <a href="#" v-on:click.prevent="sortBy(coluna)">{{coluna}}</a>
+                </th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="time in timesFiltered">
+                <td>
+                  <img :src="time.escudo" style="height: 30px; width: 30px" alt="">
+                </td>
+                <td>{{time.nome}}</td>
+                <td>{{time.pontos}}</td>
+                <td>{{time.gm}}</td>
+                <td>{{time.gs}}</td>
+                <th>{{time | saldo}}</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div v-if="view == 'novoJogo'" class="text-center">
+          <form class="form-inline" action="index.html" method="post">
+            <div class="form-group">
+
+              <input type="text" class="form-control" name=""  v-model="novoJogo.casa.gols">
+              <label for="" class="control-label">
+                  {{novoJogo.casa.time.nome}}
+                <img :src="novoJogo.casa.time.escudo" alt="" style="height:30px; width:30px;">
+              </label>
+            </div>
+            <span>X</span>
+
+            <div class="form-group">
+
+              <label for="" class="control-label">
+
+                <img :src="novoJogo.fora.time.escudo" alt="" style="height:30px; width:30px;">
+                {{novoJogo.fora.time.nome}}
+              </label>
+              <input type="text" class="form-control" name="" v-model="novoJogo.fora.gols">
+            </div>
+            <button type="button" class="btn btn-lg btn-primary" v-on:click="fimJogo">Fim de jogo</button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+
+
+    </div>
+    <script src="dist/build.js"></script>
+    <script src="dist/build.js.map" charset="utf-8"></script>
+  </body>
+</html>
